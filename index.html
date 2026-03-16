@@ -418,18 +418,20 @@
     margin-bottom: 48px;
   }
 
+  /* FIX: Align emojis to the first line */
   .pro-feature {
     display: flex;
     align-items: flex-start;
     gap: 12px;
     font-size: 14px;
     color: var(--muted);
+    text-align: left;
   }
 
   .pro-feature-icon {
     font-size: 18px;
     flex-shrink: 0;
-    margin-top: 2px;
+    margin-top: 1px; /* Precise alignment with text height */
   }
 
   .pro-price {
@@ -578,7 +580,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">STAMP</a>
   <ul class="nav-links">
@@ -589,7 +590,6 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <p class="hero-tag">🎫 Concert Diary</p>
@@ -608,7 +608,6 @@
   </div>
 </section>
 
-<!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker">
     <span class="ticker-item"><span class="ticker-dot"></span> Concert Logging</span>
@@ -628,7 +627,6 @@
   </div>
 </div>
 
-<!-- FEATURES -->
 <section class="section" id="features">
   <p class="section-label reveal">What is STAMP?</p>
   <h2 class="section-title reveal">Every night<br>deserves a<br><span style="color:var(--accent)">stamp.</span></h2>
@@ -636,21 +634,21 @@
     <div class="feature-card reveal">
       <span class="feature-emoji">🎫</span>
       <h3 class="feature-title">Concert Logging</h3>
-      <p class="feature-desc">Log every show — artist, venue, date, opening act, notes and rating. Your complete concert archive, always with you.</p>
+      <p class="feature-desc">Log every show — artist, venue, date, opening act, and personal notes. Your complete concert archive, always with you.</p>
     </div>
     <div class="feature-card reveal">
       <span class="feature-emoji">🎵</span>
-      <h3 class="feature-title">Setlist Viewer</h3>
+      <h3 class="feature-title">Relive every note</h3>
       <p class="feature-desc">Access the complete history of every performance. From opening tracks to the final encore, never forget a single song.</p>
     </div>
     <div class="feature-card reveal">
       <span class="feature-emoji">👥</span>
-      <h3 class="feature-title">Similar Listeners</h3>
+      <h3 class="feature-title">Find your tribe</h3>
       <p class="feature-desc">You never go to a concert alone. Connect with fans who breathe the same lyrics and share your sonic DNA.</p>
     </div>
     <div class="feature-card reveal">
       <span class="feature-emoji">📅</span>
-      <h3 class="feature-title">Upcoming Events</h3>
+      <h3 class="feature-title">Your next core memory</h3>
       <p class="feature-desc">The stage is set. Discover the hottest shows in your city and secure your spot in the front row, instantly.</p>
     </div>
     <div class="feature-card reveal">
@@ -660,15 +658,14 @@
     </div>
     <div class="feature-card reveal">
       <span class="feature-emoji">📋</span>
-      <h3 class="feature-title">Lists</h3>
-      <p class="feature-desc">Create collections — best of the year, festival memories, all-time favourites. Your concerts, curated.</p>
+      <h3 class="feature-title">Curated Lists</h3>
+      <p class="feature-desc">Create collections — best of the year, festival memories, all-time favourites. Your concerts, curated by you.</p>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- HOW IT WORKS -->
 <section class="section" id="how">
   <p class="section-label reveal">Simple process</p>
   <h2 class="section-title reveal">How it<br>works.</h2>
@@ -681,24 +678,23 @@
     <div class="step reveal">
       <div class="step-num">02</div>
       <h3 class="step-title">Log your stamp</h3>
-      <p class="step-desc">Add the artist, venue, date, rating and notes. Takes 30 seconds.</p>
+      <p class="step-desc">Add the artist, venue, and rating. Takes less than 30 seconds.</p>
     </div>
     <div class="step reveal">
       <div class="step-num">03</div>
       <h3 class="step-title">Explore the setlist</h3>
-      <p class="step-desc">See which songs were played. Relive the moment.</p>
+      <p class="step-desc">See which songs were played. Relive the moment instantly.</p>
     </div>
     <div class="step reveal">
       <div class="step-num">04</div>
       <h3 class="step-title">Build your archive</h3>
-      <p class="step-desc">Watch your concert history grow. Find your musical identity.</p>
+      <p class="step-desc">Watch your concert history grow. Define your musical identity.</p>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- PRO -->
 <section style="padding: 120px 0;" id="pro">
   <div class="pro-section reveal">
     <div class="pro-badge">⭐ STAMP PRO</div>
@@ -716,19 +712,17 @@
   </div>
 </section>
 
-<!-- CTA -->
 <section class="cta-section">
   <h2 class="cta-title reveal">STAMP<br>YOUR<br><em>MEMORIES.</em></h2>
-  <p class="cta-sub reveal">Available now on iOS.</p>
+  <p class="cta-sub reveal">Stay tuned. Launching soon on iOS.</p>
   <div class="reveal">
-    <a href="https://apps.apple.com/app/stamp-concert-diary/id6760618874" class="btn-primary" target="_blank" style="font-size:16px; padding: 18px 40px;">
+    <div class="btn-primary" style="font-size:16px; padding: 18px 40px; cursor: default; opacity: 0.85;">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-      Download on App Store
-    </a>
+      Coming Soon to App Store
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <span class="footer-logo">STAMP</span>
   <ul class="footer-links">
