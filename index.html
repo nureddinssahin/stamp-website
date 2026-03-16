@@ -237,13 +237,11 @@
     position: relative;
   }
 
-  .feature-card:hover { border-color: rgba(125,211,252,0.3); }
-
   .feature-emoji { font-size: 36px; margin-bottom: 20px; display: block; }
   .feature-title { font-size: 18px; font-weight: 500; margin-bottom: 10px; }
   .feature-desc { font-size: 14px; color: var(--muted); line-height: 1.8; }
 
-  /* ── PRO SECTION (Hizalama Düzeltilmiş) ── */
+  /* ── PRO SECTION ── */
   .pro-section {
     background: var(--surface);
     border: 1px solid var(--surface2);
@@ -269,6 +267,21 @@
     margin-bottom: 24px;
   }
 
+  .pro-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 6vw, 64px);
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+
+  .pro-desc {
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 500px;
+    line-height: 1.8;
+    margin-bottom: 64px; /* ARTIRILDI: Özelliklerle metin arasına boşluk eklendi */
+  }
+
   .pro-features {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -286,7 +299,7 @@
   .pro-feature-icon {
     font-size: 18px;
     flex-shrink: 0;
-    margin-top: 4px; /* Başlık ile tam hizalama */
+    margin-top: 4px;
   }
 
   .pro-feature span strong {
