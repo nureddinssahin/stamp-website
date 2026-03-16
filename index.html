@@ -3,524 +3,644 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>STAMP — Stamp your memories.</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
-  :root {
-    --black: #0A0A0A;      /* Background */
-    --surface: #171717;    /* Card */
-    --surface2: #262626;   /* Border */
-    --accent: #5B3DF5;     /* Primary - Electric Purple/Blue */
-    --accent-secondary: #22D3EE; /* Accent - Cyan */
-    --highlight: #FFD166;  /* Highlight - Gold/Yellow */
-    --accent-dim: rgba(91, 61, 245, 0.15);
-    --text: #FFFFFF;       /* Text */
-    --muted: #A1A1AA;      /* Muted */
-    --dim: #52525B;        /* Darker Muted */
-  }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ─────────────────────────────
+   COLOR SYSTEM
+───────────────────────────── */
 
-  html { scroll-behavior: smooth; }
+:root{
 
-  body {
-    background: var(--black);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    overflow-x: hidden;
-  }
+--black:#0A0A0A;
+--surface:#171717;
+--border:#262626;
 
-  /* ── NOISE TEXTURE ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.6;
-  }
+--primary:#5B3DF5;
+--accent:#22D3EE;
+--highlight:#FFD166;
 
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
-  }
+--text:#FFFFFF;
+--muted:#A1A1AA;
+--dim:#52525B;
 
-  .nav-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    color: var(--text);
-    letter-spacing: 3px;
-    text-decoration: none;
-  }
+--gradient-primary:linear-gradient(135deg,#8A6CFF,#5B3DF5);
 
-  .nav-links {
-    display: flex;
-    gap: 32px;
-    list-style: none;
-  }
+}
 
-  .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 13px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
+/* RESET */
 
-  .nav-links a:hover { color: var(--accent-secondary); }
+*,*::before,*::after{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
 
-  /* ── HERO ── */
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 120px 40px 80px;
-    overflow: hidden;
-  }
+html{scroll-behavior:smooth;}
 
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background: 
-      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(91, 61, 245, 0.08) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(34, 211, 238, 0.06) 0%, transparent 60%);
-    pointer-events: none;
-  }
+body{
+background:var(--black);
+color:var(--text);
+font-family:'DM Sans',sans-serif;
+font-weight:300;
+overflow-x:hidden;
+}
 
-  .hero-tag {
-    font-size: 11px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    color: var(--accent-secondary);
-    margin-bottom: 20px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.2s forwards;
-  }
+/* ─────────────────────────────
+   NOISE TEXTURE
+───────────────────────────── */
 
-  .hero-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(80px, 15vw, 180px);
-    line-height: 0.9;
-    letter-spacing: 4px;
-    color: var(--text);
-    opacity: 0;
-    animation: fadeUp 0.8s 0.4s forwards;
-  }
+body::before{
 
-  .hero-title span { color: var(--accent); }
+content:'';
+position:fixed;
+inset:0;
 
-  .hero-sub {
-    font-size: clamp(16px, 2.5vw, 22px);
-    color: var(--muted);
-    font-weight: 300;
-    font-style: italic;
-    margin-top: 24px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.6s forwards;
-  }
+background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
 
-  .hero-cta {
-    display: flex;
-    gap: 16px;
-    margin-top: 48px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.8s forwards;
-    flex-wrap: wrap;
-  }
+pointer-events:none;
+z-index:0;
+opacity:.6;
+}
 
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--accent);
-    color: #FFF;
-    padding: 16px 32px;
-    border-radius: 100px;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
-    border: none;
-    cursor: default;
-  }
+/* ─────────────────────────────
+   NAV
+───────────────────────────── */
 
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(91, 61, 245, 0.3); }
+nav{
 
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: transparent;
-    color: var(--muted);
-    padding: 16px 32px;
-    border-radius: 100px;
-    border: 1px solid var(--surface2);
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
+position:fixed;
+top:0;
+left:0;
+right:0;
 
-  .btn-secondary:hover { border-color: var(--accent-secondary); color: var(--text); }
+z-index:100;
 
-  /* ── TICKER ── */
-  .ticker-wrap {
-    overflow: hidden;
-    border-top: 1px solid var(--surface2);
-    border-bottom: 1px solid var(--surface2);
-    padding: 14px 0;
-    background: var(--surface);
-  }
+display:flex;
+justify-content:space-between;
+align-items:center;
 
-  .ticker {
-    display: flex;
-    animation: ticker 25s linear infinite;
-    white-space: nowrap;
-  }
+padding:20px 40px;
 
-  .ticker-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 24px;
-    padding: 0 32px;
-    font-size: 12px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
+background:linear-gradient(to bottom,rgba(10,10,10,.95),transparent);
 
-  .ticker-dot {
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    background: var(--accent-secondary);
-  }
+}
 
-  /* ── FEATURES ── */
-  .section { padding: 120px 40px; position: relative; }
-  .section-label {
-    font-size: 11px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    color: var(--accent-secondary);
-    margin-bottom: 16px;
-  }
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(42px, 6vw, 72px);
-    letter-spacing: 2px;
-    line-height: 1;
-    margin-bottom: 60px;
-  }
+.nav-logo{
 
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2px;
-    background: var(--surface2); /* Grid lines effect */
-    border: 1px solid var(--surface2);
-  }
+font-family:'Bebas Neue',sans-serif;
+font-size:28px;
+letter-spacing:3px;
+text-decoration:none;
+color:var(--text);
 
-  .feature-card {
-    background: var(--surface);
-    padding: 40px 32px;
-    transition: all 0.3s;
-  }
+}
 
-  .feature-card:hover { background: #1c1c1c; }
+.nav-links{
 
-  .feature-emoji { font-size: 36px; margin-bottom: 20px; display: block; }
-  .feature-title { font-size: 18px; font-weight: 500; margin-bottom: 10px; color: var(--text); }
-  .feature-desc { font-size: 14px; color: var(--muted); line-height: 1.8; }
+display:flex;
+gap:32px;
+list-style:none;
 
-  /* ── PRO SECTION ── */
-  .pro-section {
-    background: var(--surface);
-    border: 1px solid var(--surface2);
-    border-radius: 24px;
-    padding: 80px;
-    margin: 0 40px;
-    position: relative;
-    overflow: hidden;
-  }
+}
 
-  .pro-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--highlight);
-    color: #000;
-    padding: 4px 12px;
-    border-radius: 100px;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 24px;
-  }
+.nav-links a{
 
-  .pro-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(42px, 6vw, 64px);
-    letter-spacing: 2px;
-    margin-bottom: 16px;
-  }
+text-decoration:none;
+font-size:13px;
+letter-spacing:2px;
+text-transform:uppercase;
+color:var(--muted);
 
-  .pro-desc {
-    color: var(--muted);
-    font-size: 16px;
-    max-width: 500px;
-    line-height: 1.8;
-    margin-bottom: 64px; /* Proper separation as requested */
-  }
+transition:.2s;
 
-  .pro-features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 32px 16px;
-    margin-bottom: 48px;
-  }
+}
 
-  .pro-feature {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    text-align: left;
-  }
+.nav-links a:hover{
 
-  .pro-feature-icon {
-    font-size: 18px;
-    flex-shrink: 0;
-    margin-top: 4px; /* Alignment fix */
-  }
+color:var(--accent);
+text-shadow:0 0 8px rgba(34,211,238,.4);
 
-  .pro-feature span strong {
-    display: block;
-    color: var(--text);
-    font-size: 14px;
-    margin-bottom: 4px;
-  }
+}
 
-  .pro-feature span {
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.4;
-  }
+/* ─────────────────────────────
+   HERO
+───────────────────────────── */
 
-  .pro-price {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 48px;
-    color: var(--highlight);
-    letter-spacing: 2px;
-  }
+.hero{
 
-  .pro-price span {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    color: var(--muted);
-    font-weight: 300;
-    letter-spacing: 0;
-  }
+position:relative;
+min-height:100vh;
 
-  /* ── CTA ── */
-  .cta-section {
-    padding: 160px 40px;
-    text-align: center;
-  }
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:flex-start;
 
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--surface2);
-    padding: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
+padding:120px 40px 80px;
 
-  .footer-links { display: flex; gap: 24px; list-style: none; }
-  .footer-links a { color: var(--dim); text-decoration: none; font-size: 12px; transition: color 0.2s; }
-  .footer-links a:hover { color: var(--accent-secondary); }
+overflow:hidden;
 
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes ticker {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-  .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
+}
 
-  @media (max-width: 768px) {
-    .hero { padding: 120px 24px 80px; }
-    .pro-section { padding: 48px 24px; margin: 0 24px; }
-    .nav-links { display: none; }
-    .section { padding: 80px 24px; }
-  }
+.hero-bg{
+
+position:absolute;
+inset:0;
+
+background:
+
+radial-gradient(ellipse 60% 50% at 80% 50%,rgba(91,61,245,.12) 0%,transparent 70%),
+radial-gradient(ellipse 40% 60% at 10% 80%,rgba(34,211,238,.08) 0%,transparent 60%);
+
+pointer-events:none;
+
+}
+
+/* HERO TEXT */
+
+.hero-tag{
+
+font-size:11px;
+letter-spacing:5px;
+text-transform:uppercase;
+color:var(--accent);
+margin-bottom:20px;
+
+opacity:0;
+animation:fadeUp .8s .2s forwards;
+
+}
+
+.hero-title{
+
+font-family:'Bebas Neue',sans-serif;
+font-size:clamp(80px,15vw,180px);
+letter-spacing:4px;
+line-height:.9;
+
+opacity:0;
+animation:fadeUp .8s .4s forwards;
+
+}
+
+.hero-title span{
+color:var(--primary);
+}
+
+.hero-sub{
+
+font-size:clamp(16px,2.5vw,22px);
+color:var(--muted);
+font-style:italic;
+margin-top:24px;
+
+opacity:0;
+animation:fadeUp .8s .6s forwards;
+
+}
+
+/* CTA */
+
+.hero-cta{
+
+display:flex;
+gap:16px;
+margin-top:48px;
+flex-wrap:wrap;
+
+opacity:0;
+animation:fadeUp .8s .8s forwards;
+
+}
+
+/* BUTTONS */
+
+.btn-primary{
+
+display:inline-flex;
+align-items:center;
+gap:10px;
+
+background:var(--gradient-primary);
+
+color:#fff;
+
+padding:16px 32px;
+
+border-radius:100px;
+
+font-size:14px;
+font-weight:500;
+
+letter-spacing:1px;
+text-decoration:none;
+
+transition:.25s;
+
+}
+
+.btn-primary:hover{
+
+transform:translateY(-2px);
+box-shadow:0 0 25px rgba(91,61,245,.45);
+
+}
+
+.btn-secondary{
+
+display:inline-flex;
+align-items:center;
+gap:10px;
+
+background:transparent;
+color:var(--muted);
+
+padding:16px 32px;
+
+border-radius:100px;
+
+border:1px solid var(--border);
+
+font-size:14px;
+letter-spacing:1px;
+
+text-decoration:none;
+
+transition:.2s;
+
+}
+
+.btn-secondary:hover{
+
+border-color:var(--accent);
+color:var(--text);
+
+}
+
+/* ─────────────────────────────
+   TICKER
+───────────────────────────── */
+
+.ticker-wrap{
+
+overflow:hidden;
+
+border-top:1px solid var(--border);
+border-bottom:1px solid var(--border);
+
+padding:14px 0;
+
+background:var(--surface);
+
+}
+
+.ticker{
+
+display:flex;
+white-space:nowrap;
+
+animation:ticker 25s linear infinite;
+
+}
+
+.ticker-item{
+
+display:inline-flex;
+align-items:center;
+gap:24px;
+
+padding:0 32px;
+
+font-size:12px;
+letter-spacing:4px;
+text-transform:uppercase;
+
+color:var(--muted);
+
+}
+
+.ticker-dot{
+
+width:4px;
+height:4px;
+
+border-radius:50%;
+background:var(--accent);
+
+}
+
+/* ─────────────────────────────
+   FEATURES
+───────────────────────────── */
+
+.section{
+
+padding:120px 40px;
+
+}
+
+.section-label{
+
+font-size:11px;
+letter-spacing:5px;
+text-transform:uppercase;
+
+color:var(--accent);
+
+margin-bottom:16px;
+
+}
+
+.section-title{
+
+font-family:'Bebas Neue',sans-serif;
+
+font-size:clamp(42px,6vw,72px);
+
+letter-spacing:2px;
+
+line-height:1;
+
+margin-bottom:60px;
+
+}
+
+.features-grid{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+gap:2px;
+
+background:var(--border);
+
+border:1px solid var(--border);
+
+}
+
+.feature-card{
+
+background:var(--surface);
+
+padding:40px 32px;
+
+transition:.3s;
+
+}
+
+.feature-card:hover{
+
+background:#1c1c1c;
+
+transform:translateY(-4px);
+
+}
+
+.feature-emoji{
+
+font-size:36px;
+margin-bottom:20px;
+
+}
+
+.feature-title{
+
+font-size:18px;
+font-weight:500;
+margin-bottom:10px;
+
+}
+
+.feature-desc{
+
+font-size:14px;
+color:var(--muted);
+line-height:1.8;
+
+}
+
+/* ─────────────────────────────
+   PRO
+───────────────────────────── */
+
+.pro-section{
+
+background:var(--surface);
+
+border:1px solid var(--border);
+
+border-radius:24px;
+
+padding:80px;
+
+margin:0 40px;
+
+}
+
+.pro-badge{
+
+display:inline-flex;
+gap:6px;
+
+background:var(--highlight);
+color:#000;
+
+padding:4px 12px;
+
+border-radius:100px;
+
+font-size:11px;
+font-weight:800;
+letter-spacing:2px;
+text-transform:uppercase;
+
+margin-bottom:24px;
+
+}
+
+.pro-title{
+
+font-family:'Bebas Neue',sans-serif;
+
+font-size:clamp(42px,6vw,64px);
+
+letter-spacing:2px;
+
+margin-bottom:16px;
+
+}
+
+.pro-desc{
+
+color:var(--muted);
+
+max-width:500px;
+
+line-height:1.8;
+
+margin-bottom:64px;
+
+}
+
+.pro-price{
+
+font-family:'Bebas Neue',sans-serif;
+
+font-size:48px;
+
+color:var(--highlight);
+
+}
+
+/* ─────────────────────────────
+   CTA
+───────────────────────────── */
+
+.cta-section{
+
+padding:160px 40px;
+text-align:center;
+
+}
+
+/* ─────────────────────────────
+   FOOTER
+───────────────────────────── */
+
+footer{
+
+border-top:1px solid var(--border);
+
+padding:40px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+
+gap:20px;
+
+}
+
+.footer-logo{
+
+font-family:'Bebas Neue',sans-serif;
+letter-spacing:3px;
+font-size:18px;
+
+}
+
+.footer-links{
+
+display:flex;
+gap:24px;
+list-style:none;
+
+}
+
+.footer-links a{
+
+color:var(--dim);
+text-decoration:none;
+font-size:12px;
+
+transition:.2s;
+
+}
+
+.footer-links a:hover{
+
+color:var(--accent);
+
+}
+
+/* ─────────────────────────────
+   ANIMATION
+───────────────────────────── */
+
+@keyframes fadeUp{
+
+from{opacity:0;transform:translateY(30px);}
+to{opacity:1;transform:translateY(0);}
+
+}
+
+@keyframes ticker{
+
+from{transform:translateX(0);}
+to{transform:translateX(-50%);}
+
+}
+
+.reveal{
+opacity:0;
+transform:translateY(40px);
+transition:.8s;
+}
+
+.reveal.visible{
+opacity:1;
+transform:translateY(0);
+}
+
+@media(max-width:768px){
+
+.hero{padding:120px 24px 80px;}
+
+.pro-section{padding:48px 24px;margin:0 24px;}
+
+.nav-links{display:none;}
+
+.section{padding:80px 24px;}
+
+}
+
 </style>
 </head>
+
 <body>
 
 <nav>
-  <a href="#" class="nav-logo">STAMP</a>
-  <ul class="nav-links">
-    <li><a href="#features">Features</a></li>
-    <li><a href="#pro">Pro</a></li>
-    <li><a href="https://nureddinssahin.github.io/stamp-privacy/" target="_blank">Privacy</a></li>
-  </ul>
+
+<a href="#" class="nav-logo">STAMP</a>
+
+<ul class="nav-links">
+
+<li><a href="#features">Features</a></li>
+<li><a href="#pro">Pro</a></li>
+<li><a href="#">Privacy</a></li>
+
+</ul>
+
 </nav>
 
 <section class="hero">
-  <div class="hero-bg"></div>
-  <p class="hero-tag">🎫 Your Digital Concert Diary</p>
-  <h1 class="hero-title">STAMP<span>.</span></h1>
-  <p class="hero-sub">Stamp your memories.</p>
-  <div class="hero-cta">
-    <div class="btn-primary" style="opacity: 0.9;">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-      Coming Soon to App Store
-    </div>
-    <a href="#features" class="btn-secondary">Explore Features ↓</a>
-  </div>
-</section>
 
-<div class="ticker-wrap">
-  <div class="ticker">
-    <span class="ticker-item"><span class="ticker-dot"></span> Concert Logging</span>
-    <span class="ticker-item"><span class="ticker-dot"></span> Relive Every Note</span>
-    <span class="ticker-item"><span class="ticker-dot"></span> Find Your Tribe</span>
-    <span class="ticker-item"><span class="ticker-dot"></span> Sonic DNA</span>
-    <span class="ticker-item"><span class="ticker-dot"></span> Core Memories</span>
-    <span class="ticker-item"><span class="ticker-dot"></span> Pro Wrapped</span>
-    <span class="ticker-item"><span class="ticker-dot"></span> Concert Logging</span>
-    <span class="ticker-item"><span class="ticker-dot"></span> Relive Every Note</span>
-    <span class="ticker-item"><span class="ticker-dot"></span> Find Your Tribe</span>
-    <span class="ticker-item"><span class="ticker-dot"></span> Sonic DNA</span>
-    <span class="ticker-item"><span class="ticker-dot"></span> Core Memories</span>
-    <span class="ticker-item"><span class="ticker-dot"></span> Pro Wrapped</span>
-  </div>
+<div class="hero-bg"></div>
+
+<p class="hero-tag">🎫 Your Digital Concert Diary</p>
+
+<h1 class="hero-title">STAMP<span>.</span></h1>
+
+<p class="hero-sub">Stamp your memories.</p>
+
+<div class="hero-cta">
+
+<div class="btn-primary">
+Coming Soon to App Store
 </div>
 
-<section class="section" id="features">
-  <p class="section-label reveal">Archive your journey</p>
-  <h2 class="section-title reveal">Every show tells<br>a story. Keep yours<br><span style="color:var(--accent-secondary)">forever.</span></h2>
-  <div class="features-grid">
-    <div class="feature-card reveal">
-      <span class="feature-emoji">🎫</span>
-      <h3 class="feature-title">Concert Logging</h3>
-      <p class="feature-desc">Log every show — artist, venue, and date. Your complete concert archive, designed for the real fans.</p>
-    </div>
-    <div class="feature-card reveal">
-      <span class="feature-emoji">🎵</span>
-      <h3 class="feature-title">Relive every note</h3>
-      <p class="feature-desc">Access the complete history of every performance. From opening tracks to the final encore. Never forget a song.</p>
-    </div>
-    <div class="feature-card reveal">
-      <span class="feature-emoji">👥</span>
-      <h3 class="feature-title">Find your tribe</h3>
-      <p class="feature-desc">Connect with fans who breathe the same lyrics and share your sonic DNA. You're never alone in the pit.</p>
-    </div>
-    <div class="feature-card reveal">
-      <span class="feature-emoji">📅</span>
-      <h3 class="feature-title">Your next core memory</h3>
-      <p class="feature-desc">Discover the hottest shows in your city and secure your spot in the front row. The stage is waiting.</p>
-    </div>
-    <div class="feature-card reveal">
-      <span class="feature-emoji">🏆</span>
-      <h3 class="feature-title">Badges</h3>
-      <p class="feature-desc">Earn badges based on your habits. From "First Stamp" to "Venue Explorer". Level up your music life.</p>
-    </div>
-    <div class="feature-card reveal">
-      <span class="feature-emoji">📋</span>
-      <h3 class="feature-title">Curated Lists</h3>
-      <p class="feature-desc">Create collections — your personal best of the year or festival memories. Your concerts, your rules.</p>
-    </div>
-  </div>
+<a href="#features" class="btn-secondary">Explore Features ↓</a>
+
+</div>
+
 </section>
 
-<section style="padding: 120px 0;" id="pro">
-  <div class="pro-section reveal">
-    <div class="pro-badge">⭐ STAMP PRO</div>
-    <h2 class="pro-title">Deepen your<br>musical journey.</h2>
-    <p class="pro-desc">Go beyond logging. Discover your musical personality and unlock your unique year in music.</p>
-    <div class="pro-features">
-      <div class="pro-feature">
-        <span class="pro-feature-icon">🎁</span>
-        <span><strong>Annual STAMP Wrapped</strong>Your entire year in music, visualized.</span>
-      </div>
-      <div class="pro-feature">
-        <span class="pro-feature-icon">🏆</span>
-        <span><strong>Musical Personality</strong>Discover your unique listener type.</span>
-      </div>
-      <div class="pro-feature">
-        <span class="pro-feature-icon">📊</span>
-        <span><strong>Detailed Stats</strong>Deep dive into your concert trends.</span>
-      </div>
-      <div class="pro-feature">
-        <span class="pro-feature-icon">🎨</span>
-        <span><strong>Custom Themes</strong>Personalize your profile colors.</span>
-      </div>
-      <div class="pro-feature">
-        <span class="pro-feature-icon">⭐</span>
-        <span><strong>Top 4 Showcase</strong>Highlight your all-time favorite shows.</span>
-      </div>
-      <div class="pro-feature">
-        <span class="pro-feature-icon">📍</span>
-        <span><strong>Venue Explorer</strong>Track your most visited locations.</span>
-      </div>
-    </div>
-    <div class="pro-price">₺99,99 <span>one-time purchase</span></div>
-  </div>
-</section>
-
-<section class="cta-section">
-  <h2 class="hero-title reveal" style="font-size: clamp(60px, 10vw, 120px); margin: 0 auto 40px; text-align: center;">STAMP YOUR<br><em>MEMORIES.</em></h2>
-  <div class="reveal">
-    <div class="btn-primary" style="font-size:16px; padding: 18px 40px; opacity: 0.9;">
-      Coming Soon to App Store
-    </div>
-  </div>
-</section>
-
-<footer>
-  <span class="footer-logo">STAMP</span>
-  <ul class="footer-links">
-    <li><a href="#features">Features</a></li>
-    <li><a href="#pro">Pro</a></li>
-    <li><a href="https://nureddinssahin.github.io/stamp-privacy/" target="_blank">Privacy Policy</a></li>
-    <li><a href="mailto:info@stampapp.online">Contact</a></li>
-  </ul>
-  <span class="footer-copy">© 2026 Nureddin Şahin</span>
-</footer>
-
-<script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), i * 80);
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
 </body>
 </html>
