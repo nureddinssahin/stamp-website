@@ -15,8 +15,8 @@
       --muted: #A1A1AA;
       --line: rgba(255,255,255,0.06);
       --accent: #5B3DF5;          /* Primary Purple */
-      --accent-secondary: #22D3EE; /* Cyan Accent */
-      --highlight: #FFD166;       /* Wrapped/Pro Gold */
+      --accent-secondary: #22D3EE; /* VIBE Cyan */
+      --highlight: #FFD166;       /* Wrapped Gold */
       --shadow: 0 20px 60px rgba(0,0,0,0.6);
       --radius-xl: 32px;
       --radius-lg: 24px;
@@ -34,7 +34,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── ATMOSPHERE ── */
     body::before {
       content: '';
       position: fixed;
@@ -122,7 +121,7 @@
     }
     .phone-fallback h3 { font-family: 'Bebas Neue', sans-serif; font-size: 32px; margin-bottom: 10px; }
 
-    /* ── STATS / FEATURES ── */
+    /* ── STATS ── */
     .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--line); margin-top: 40px; }
     .stat { background: var(--bg); padding: 40px; }
     .stat strong { display: block; font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--accent-secondary); }
@@ -141,10 +140,6 @@
       background: var(--surface); border-radius: var(--radius-xl); height: 500px; 
       border: 1px solid var(--line); position: relative; overflow: hidden;
     }
-    .feature-visual::after {
-      content: ''; position: absolute; inset: 0; 
-      background: radial-gradient(circle at center, rgba(34, 211, 238, 0.1), transparent);
-    }
 
     /* ── WRAPPED (GOLD) ── */
     .wrapped-box {
@@ -155,7 +150,7 @@
     .wrapped-box h2 span { color: var(--highlight); }
 
     /* ── FOOTER ── */
-    .footer { border-top: 1px solid var(--line); padding: 60px 0; color: var(--dim); font-size: 14px; }
+    .footer { border-top: 1px solid var(--line); padding: 60px 0; color: var(--muted); font-size: 14px; }
     .footer-inner { display: flex; justify-content: space-between; align-items: center; }
 
     @media (max-width: 900px) {
@@ -190,12 +185,12 @@
     <section class="hero">
       <div class="container hero-wrap">
         <div class="hero-content">
-          <div class="eyebrow">Concert diary • Sonic DNA • Wrapped</div>
+          <div class="eyebrow">Concert diary • VIBE • Wrapped</div>
           <h1>Your concert life, <span>remembered.</span></h1>
-          <p>STAMP helps you log every concert, relive every moment, and connect with fans who share your unique sonic DNA.</p>
+          <p>STAMP helps you log every concert, relive the energy, and connect with fans who share your unique VIBE.</p>
           <div class="hero-actions">
             <a href="#download" class="btn btn-primary">Coming Soon to App Store</a>
-            <a href="#features" class="btn btn-secondary">Explore Features ↓</a>
+            <a href="#features" class="btn btn-secondary">Explore VIBE ↓</a>
           </div>
         </div>
         
@@ -208,7 +203,7 @@
             </div>
             <div class="phone phone-front">
               <div class="phone-fallback" style="background: linear-gradient(to bottom, #1e1e1e, #0a0a0a);">
-                <h3 style="color: var(--accent-secondary);">Every Night,<br>A Stamp.</h3>
+                <h3 style="color: var(--accent-secondary);">Relive the<br>VIBE.</h3>
               </div>
             </div>
           </div>
@@ -223,7 +218,7 @@
           <span>to save a night with notes, ratings and memories.</span>
         </div>
         <div class="stat">
-          <strong>Sonic DNA</strong>
+          <strong>VIBE</strong>
           <span>Matched with the right crowd, at the right show.</span>
         </div>
         <div class="stat">
@@ -237,17 +232,17 @@
       </div>
     </div>
 
-    <section class="section" id="features">
-      <div class="container feature-row">
+    <section class="section" id="vibe">
+      <div class="container feature-row reverse">
         <div class="feature-copy">
-          <div class="eyebrow">Log the night</div>
-          <h2>Every concert deserves more than a camera roll.</h2>
-          <p>Save the artist, venue, and your personal vibe. STAMP turns chaotic memories into a crafted diary for real music lovers.</p>
+          <div class="eyebrow">Relive the VIBE</div>
+          <h2 style="color: var(--accent-secondary);">See who you connect with.</h2>
+          <p>STAMP pairs your memory with the VIBE so you can find people who felt the night just like you. Long after the lights go out.</p>
         </div>
         <div class="feature-visual">
           <div class="phone-fallback" style="justify-content: center; align-items: center; text-align: center;">
-             <div class="brand-mark" style="width: 40px; height: 40px; margin-bottom: 20px;"></div>
-             <p style="color: var(--text);">[ App Screenshot Placeholder ]</p>
+             <div class="brand-mark" style="width: 40px; height: 40px; margin-bottom: 20px; background: var(--accent-secondary); box-shadow: 0 0 20px var(--accent-secondary);"></div>
+             <p style="color: var(--text);">[ VIBE Connection Screen ]</p>
           </div>
         </div>
       </div>
@@ -258,7 +253,7 @@
         <div class="wrapped-box">
           <div class="eyebrow" style="color: var(--highlight); border-color: rgba(255, 209, 102, 0.3);">Pro Feature</div>
           <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 84px; margin: 20px 0;">Your <span>Wrapped</span> Story.</h2>
-          <p style="color: var(--muted); max-width: 600px; margin: 0 auto 40px;">Discover your favorite venues, most active months, and top artists in a shareable format that tells your music story.</p>
+          <p style="color: var(--muted); max-width: 600px; margin: 0 auto 40px;">Favorite venues, top artists and the patterns behind your concert life. Made to share.</p>
           <a href="#" class="btn btn-primary" style="background: var(--highlight); color: #000;">Preview Wrapped</a>
         </div>
       </div>
@@ -278,17 +273,5 @@
       </div>
     </div>
   </footer>
-
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.stat, .feature-row, .wrapped-box').forEach(el => observer.observe(el));
-  </script>
 </body>
 </html>
