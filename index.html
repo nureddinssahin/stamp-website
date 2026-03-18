@@ -4,756 +4,262 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>STAMP — Your concert life, remembered.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #000000;
-      --surface: #0b0b0b;
-      --surface-2: #111111;
-      --text: #f5f5f7;
-      --muted: #a1a1aa;
-      --line: rgba(255,255,255,0.08);
-      --accent: #7dd3fc;
-      --accent-2: #38bdf8;
-      --card: rgba(255,255,255,0.03);
-      --shadow: 0 20px 60px rgba(0,0,0,0.45);
+      --bg: #0A0A0A;
+      --surface: #171717;
+      --surface-2: #262626;
+      --text: #FFFFFF;
+      --muted: #A1A1AA;
+      --line: rgba(255,255,255,0.06);
+      --accent: #5B3DF5;          /* Primary Purple */
+      --accent-secondary: #22D3EE; /* Cyan Accent */
+      --highlight: #FFD166;       /* Wrapped/Pro Gold */
+      --shadow: 0 20px 60px rgba(0,0,0,0.6);
       --radius-xl: 32px;
       --radius-lg: 24px;
-      --radius-md: 18px;
-      --max: 1280px;
+      --max: 1200px;
     }
 
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+    
     body {
-      margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top, rgba(56,189,248,0.14), transparent 28%),
-        linear-gradient(180deg, #030303 0%, #000 20%, #000 100%);
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
       color: var(--text);
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
     }
 
-    img { max-width: 100%; display: block; }
-    a { color: inherit; text-decoration: none; }
-
-    .container {
-      width: min(calc(100% - 40px), var(--max));
-      margin: 0 auto;
-    }
-
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(16px);
-      background: rgba(0,0,0,0.45);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 0;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      letter-spacing: 0.14em;
-      font-size: 14px;
-    }
-
-    .brand-mark {
-      width: 12px;
-      height: 12px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 0 24px rgba(56,189,248,0.45);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .nav-cta {
-      padding: 10px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.04);
-      font-size: 14px;
-      transition: 0.25s ease;
-    }
-
-    .nav-cta:hover,
-    .btn-secondary:hover {
-      border-color: rgba(255,255,255,0.22);
-      background: rgba(255,255,255,0.08);
-    }
-
-    .hero {
-      padding: 56px 0 40px;
-      overflow: hidden;
-    }
-
-    .hero-wrap {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 48px;
-      align-items: center;
-      min-height: calc(100vh - 90px);
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #d4d4d8;
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .hero h1,
-    .feature-copy h2,
-    .cta h2 {
-      margin: 18px 0 0;
-      font-size: clamp(52px, 8vw, 104px);
-      line-height: 0.92;
-      letter-spacing: -0.05em;
-      font-weight: 800;
-    }
-
-    .hero p {
-      max-width: 560px;
-      margin: 22px 0 0;
-      font-size: clamp(18px, 2vw, 22px);
-      line-height: 1.5;
-      color: var(--muted);
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 34px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      min-height: 56px;
-      padding: 0 22px;
-      border-radius: 999px;
-      font-weight: 700;
-      transition: transform 0.25s ease, opacity 0.25s ease, background 0.25s ease, border-color 0.25s ease;
-    }
-
-    .btn:hover { transform: translateY(-1px); }
-    .btn-primary {
-      color: #03131a;
-      background: linear-gradient(135deg, #c7ecff, var(--accent));
-      box-shadow: 0 10px 40px rgba(56,189,248,0.28);
-    }
-
-    .btn-secondary {
-      color: var(--text);
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.04);
-    }
-
-    .hero-note {
-      margin-top: 18px;
-      font-size: 13px;
-      color: #71717a;
-      letter-spacing: 0.03em;
-    }
-
-    .hero-visual {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      perspective: 1600px;
-    }
-
-    .glow {
-      position: absolute;
-      inset: auto;
-      width: 480px;
-      height: 480px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(56,189,248,0.24), transparent 60%);
-      filter: blur(10px);
-      top: 12%;
-      right: 8%;
+    /* ── ATMOSPHERE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 20% 10%, rgba(91, 61, 245, 0.08), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(34, 211, 238, 0.05), transparent 30%);
+      pointer-events: none;
       z-index: 0;
     }
 
-    .device-stack {
-      position: relative;
-      width: min(100%, 520px);
-      min-height: 760px;
+    .container { width: min(calc(100% - 48px), var(--max)); margin: 0 auto; position: relative; z-index: 1; }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky;
+      top: 0; z-index: 100;
+      backdrop-filter: blur(20px);
+      background: rgba(10,10,10,0.8);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
+    
+    .brand { 
+      display: flex; align-items: center; gap: 8px; 
+      font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px;
+      text-decoration: none; color: var(--text);
+    }
+    .brand-mark { 
+      width: 12px; height: 12px; background: var(--accent); border-radius: 2px; 
+      box-shadow: 0 0 15px var(--accent);
     }
 
+    .nav-links { display: flex; gap: 32px; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+    .nav-links a { color: var(--muted); transition: 0.2s; text-decoration: none; }
+    .nav-links a:hover { color: var(--accent-secondary); }
+
+    /* ── HERO ── */
+    .hero { padding: 80px 0; }
+    .hero-wrap { 
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; 
+      min-height: 80vh;
+    }
+
+    .eyebrow {
+      display: inline-flex; padding: 6px 14px; border-radius: 100px;
+      background: rgba(91, 61, 245, 0.1); border: 1px solid rgba(91, 61, 245, 0.2);
+      color: var(--accent-secondary); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    }
+
+    h1 { 
+      font-family: 'Bebas Neue', sans-serif; font-size: clamp(64px, 10vw, 110px); 
+      line-height: 0.9; letter-spacing: 1px; margin: 24px 0;
+    }
+    h1 span { color: var(--accent); }
+
+    .hero p { font-size: 20px; color: var(--muted); line-height: 1.6; max-width: 500px; }
+
+    .hero-actions { display: flex; gap: 16px; margin-top: 40px; }
+    
+    .btn {
+      display: inline-flex; align-items: center; padding: 18px 32px; border-radius: 100px;
+      font-weight: 700; text-decoration: none; transition: 0.3s; font-size: 15px;
+    }
+    .btn-primary { background: var(--accent); color: white; box-shadow: 0 10px 30px rgba(91, 61, 245, 0.3); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(91, 61, 245, 0.5); }
+    
+    .btn-secondary { border: 1px solid var(--surface-2); color: var(--text); background: var(--surface); }
+    .btn-secondary:hover { border-color: var(--accent-secondary); }
+
+    /* ── DEVICE VISUAL ── */
+    .hero-visual { position: relative; }
+    .device-stack { position: relative; height: 600px; perspective: 1000px; }
+    
     .phone {
-      position: absolute;
-      border-radius: 42px;
-      background: linear-gradient(180deg, #0f0f10 0%, #070707 100%);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: var(--shadow);
-      overflow: hidden;
+      position: absolute; border-radius: 40px; background: #050505;
+      border: 1px solid var(--line); box-shadow: var(--shadow); overflow: hidden;
     }
-
-    .phone::before {
-      content: "";
-      position: absolute;
-      top: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 34%;
-      height: 22px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      z-index: 3;
-    }
-
-    .phone img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .phone-back {
-      width: 290px;
-      height: 600px;
-      left: 12px;
-      top: 100px;
-      transform: rotate(-11deg) translateZ(-40px);
-      opacity: 0.65;
-    }
-
-    .phone-front {
-      width: 340px;
-      height: 700px;
-      right: 0;
-      top: 10px;
-      transform: rotate(8deg) translateZ(40px);
-    }
-
+    .phone-front { width: 280px; height: 560px; right: 0; top: 0; z-index: 2; transform: rotate(5deg); }
+    .phone-back { width: 260px; height: 520px; left: 40px; top: 40px; z-index: 1; transform: rotate(-8deg); opacity: 0.5; }
+    
     .phone-fallback {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 32px;
-      background:
-        radial-gradient(circle at 80% 80%, rgba(56,189,248,0.25), transparent 26%),
-        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0)),
-        linear-gradient(180deg, #0c0d10 0%, #050505 100%);
+      height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding: 30px;
+      background: linear-gradient(to bottom, var(--surface), #000);
+    }
+    .phone-fallback h3 { font-family: 'Bebas Neue', sans-serif; font-size: 32px; margin-bottom: 10px; }
+
+    /* ── STATS / FEATURES ── */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--line); margin-top: 40px; }
+    .stat { background: var(--bg); padding: 40px; }
+    .stat strong { display: block; font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--accent-secondary); }
+    .stat span { color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+    /* ── SECTIONS ── */
+    .section { padding: 120px 0; }
+    .feature-row { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .feature-row.reverse { direction: rtl; }
+    .feature-row.reverse .feature-copy { direction: ltr; }
+
+    .feature-copy h2 { font-family: 'Bebas Neue', sans-serif; font-size: 72px; line-height: 1; margin: 20px 0; }
+    .feature-copy p { font-size: 18px; color: var(--muted); line-height: 1.6; }
+    
+    .feature-visual { 
+      background: var(--surface); border-radius: var(--radius-xl); height: 500px; 
+      border: 1px solid var(--line); position: relative; overflow: hidden;
+    }
+    .feature-visual::after {
+      content: ''; position: absolute; inset: 0; 
+      background: radial-gradient(circle at center, rgba(34, 211, 238, 0.1), transparent);
     }
 
-    .phone-fallback h3 {
-      margin: 0;
-      font-size: 34px;
-      line-height: 0.96;
-      letter-spacing: -0.05em;
+    /* ── WRAPPED (GOLD) ── */
+    .wrapped-box {
+      background: linear-gradient(135deg, #171717, #0A0A0A);
+      border: 1px solid rgba(255, 209, 102, 0.2);
+      padding: 80px; border-radius: 40px; text-align: center;
     }
+    .wrapped-box h2 span { color: var(--highlight); }
 
-    .phone-fallback p {
-      margin: 12px 0 0;
-      color: #a1a1aa;
-      line-height: 1.5;
-      font-size: 14px;
-    }
+    /* ── FOOTER ── */
+    .footer { border-top: 1px solid var(--line); padding: 60px 0; color: var(--dim); font-size: 14px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; }
 
-    .stats {
-      padding: 22px 0 10px;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-
-    .stat {
-      padding: 28px;
-      border-radius: var(--radius-lg);
-      background: var(--card);
-      border: 1px solid var(--line);
-    }
-
-    .stat strong {
-      display: block;
-      font-size: clamp(30px, 4vw, 44px);
-      letter-spacing: -0.04em;
-    }
-
-    .stat span {
-      display: block;
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .section {
-      padding: 110px 0;
-    }
-
-    .section + .section {
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .feature {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 56px;
-      align-items: center;
-    }
-
-    .feature.reverse .feature-copy { order: 2; }
-    .feature.reverse .feature-visual { order: 1; }
-
-    .feature-copy h2 {
-      font-size: clamp(40px, 6vw, 76px);
-    }
-
-    .feature-copy p {
-      margin: 18px 0 0;
-      max-width: 520px;
-      font-size: 20px;
-      line-height: 1.6;
-      color: var(--muted);
-    }
-
-    .feature-list {
-      margin: 28px 0 0;
-      padding: 0;
-      list-style: none;
-      display: grid;
-      gap: 14px;
-    }
-
-    .feature-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      color: #e4e4e7;
-      line-height: 1.55;
-    }
-
-    .feature-list li::before {
-      content: "●";
-      color: var(--accent);
-      margin-top: 1px;
-      font-size: 12px;
-    }
-
-    .feature-visual {
-      position: relative;
-      min-height: 720px;
-      border-radius: var(--radius-xl);
-      background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.02));
-      border: 1px solid rgba(255,255,255,0.06);
-      overflow: hidden;
-    }
-
-    .feature-visual::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top right, rgba(56,189,248,0.1), transparent 36%);
-      pointer-events: none;
-    }
-
-    .feature-frame {
-      position: absolute;
-      inset: 28px;
-      border-radius: 28px;
-      overflow: hidden;
-      background: #080808;
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: var(--shadow);
-    }
-
-    .feature-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .feature-fallback {
-      height: 100%;
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      background:
-        radial-gradient(circle at 80% 20%, rgba(56,189,248,0.14), transparent 26%),
-        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
-    }
-
-    .feature-fallback small {
-      color: var(--accent);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      font-size: 12px;
-    }
-
-    .feature-fallback h3 {
-      margin: 10px 0 0;
-      font-size: 38px;
-      letter-spacing: -0.04em;
-    }
-
-    .feature-fallback p {
-      margin: 14px 0 0;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    .gallery {
-      padding: 36px 0 110px;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .gallery-card {
-      border-radius: 26px;
-      overflow: hidden;
-      background: var(--surface-2);
-      border: 1px solid rgba(255,255,255,0.08);
-      min-height: 600px;
-      position: relative;
-    }
-
-    .gallery-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .gallery-card .overlay {
-      position: absolute;
-      inset: auto 0 0 0;
-      padding: 24px;
-      background: linear-gradient(180deg, transparent, rgba(0,0,0,0.74));
-    }
-
-    .gallery-card .overlay strong {
-      display: block;
-      font-size: 22px;
-      letter-spacing: -0.03em;
-    }
-
-    .gallery-card .overlay span {
-      display: block;
-      margin-top: 8px;
-      color: #d4d4d8;
-      line-height: 1.5;
-      font-size: 14px;
-    }
-
-    .cta {
-      padding: 0 0 120px;
-    }
-
-    .cta-box {
-      position: relative;
-      overflow: hidden;
-      border-radius: 40px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background:
-        radial-gradient(circle at 15% 20%, rgba(56,189,248,0.18), transparent 28%),
-        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      padding: 64px;
-      text-align: center;
-    }
-
-    .cta h2 {
-      font-size: clamp(38px, 6vw, 72px);
-    }
-
-    .cta p {
-      max-width: 720px;
-      margin: 18px auto 0;
-      font-size: 20px;
-      line-height: 1.6;
-      color: var(--muted);
-    }
-
-    .footer {
-      border-top: 1px solid rgba(255,255,255,0.05);
-      padding: 28px 0 42px;
-      color: #71717a;
-      font-size: 14px;
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    @media (max-width: 1100px) {
-      .hero-wrap,
-      .feature {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-wrap { min-height: auto; }
-      .hero-visual { order: -1; }
-      .feature.reverse .feature-copy,
-      .feature.reverse .feature-visual { order: initial; }
-
-      .device-stack {
-        min-height: 680px;
-        width: min(100%, 440px);
-      }
-
-      .stats-grid,
-      .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 720px) {
-      .nav-links { display: none; }
-      .hero { padding-top: 30px; }
-      .hero-actions { flex-direction: column; align-items: stretch; }
-      .btn { width: 100%; }
-      .stats-grid,
-      .gallery-grid {
-        grid-template-columns: 1fr;
-      }
-      .feature-visual,
-      .gallery-card {
-        min-height: 540px;
-      }
-      .device-stack {
-        min-height: 590px;
-        width: min(100%, 360px);
-      }
-      .phone-front {
-        width: 280px;
-        height: 580px;
-      }
-      .phone-back {
-        width: 235px;
-        height: 500px;
-      }
-      .cta-box {
-        padding: 42px 24px;
-      }
+    @media (max-width: 900px) {
+      .hero-wrap, .feature-row { grid-template-columns: 1fr; text-align: center; }
+      .hero p { margin: 0 auto; }
+      .hero-actions { justify-content: center; }
+      .hero-visual { order: -1; margin-bottom: 40px; }
+      .device-stack { height: 500px; width: 320px; margin: 0 auto; }
+      .phone-front { width: 220px; height: 440px; }
+      .phone-back { width: 200px; height: 400px; left: 20px; }
     }
   </style>
 </head>
 <body>
+
   <header class="nav">
     <div class="container nav-inner">
-      <a href="#top" class="brand">
-        <span class="brand-mark"></span>
-        <span>STAMP</span>
+      <a href="#" class="brand">
+        <div class="brand-mark"></div>
+        STAMP<span>.</span>
       </a>
       <nav class="nav-links">
-        <a href="#experience">Experience</a>
+        <a href="#features">Experience</a>
         <a href="#vibe">VIBE</a>
         <a href="#wrapped">Wrapped</a>
-        <a href="#gallery">Preview</a>
       </nav>
-      <a class="nav-cta" href="#download">Download</a>
+      <a href="#download" class="btn-secondary" style="padding: 10px 20px; font-size: 13px;">Get Early Access</a>
     </div>
   </header>
 
-  <main id="top">
+  <main>
     <section class="hero">
       <div class="container hero-wrap">
-        <div>
-          <div class="eyebrow">Concert diary • social memory • wrapped</div>
-          <h1>Your concert life, remembered.</h1>
-          <p>
-            STAMP helps you log every concert, relive every moment, and connect with fans who share your taste.
-          </p>
+        <div class="hero-content">
+          <div class="eyebrow">Concert diary • Sonic DNA • Wrapped</div>
+          <h1>Your concert life, <span>remembered.</span></h1>
+          <p>STAMP helps you log every concert, relive every moment, and connect with fans who share your unique sonic DNA.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#download">Download on the App Store</a>
-            <a class="btn btn-secondary" href="#gallery">See the app</a>
+            <a href="#download" class="btn btn-primary">Coming Soon to App Store</a>
+            <a href="#features" class="btn btn-secondary">Explore Features ↓</a>
           </div>
-          <div class="hero-note">Use your own in-app screenshots by replacing the placeholder image files in this HTML.</div>
         </div>
-
+        
         <div class="hero-visual">
-          <div class="glow"></div>
           <div class="device-stack">
             <div class="phone phone-back">
-              <img src="images/stamp-profile.png" alt="STAMP profile screen preview" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=&quot;phone-fallback&quot;><h3>Profile,<br>beautifully personal.</h3><p>Show your favorite nights, top venues, and the music identity you build over time.</p></div>'">
+              <div class="phone-fallback">
+                <h3>Visual Archive</h3>
+              </div>
             </div>
             <div class="phone phone-front">
-              <img src="images/stamp-log.png" alt="STAMP add stamp screen preview" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=&quot;phone-fallback&quot;><h3>Every night,<br>a stamp.</h3><p>Log the artist, venue, date, notes, rating and the tiny details you never want to forget.</p></div>'">
+              <div class="phone-fallback" style="background: linear-gradient(to bottom, #1e1e1e, #0a0a0a);">
+                <h3 style="color: var(--accent-secondary);">Every Night,<br>A Stamp.</h3>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="stats">
-      <div class="container stats-grid">
+    <div class="container">
+      <div class="stats-grid">
         <div class="stat">
-          <strong>1 tap</strong>
-          <span>to save a night with notes, ratings, ticket details and memories.</span>
+          <strong>1 Tap</strong>
+          <span>to save a night with notes, ratings and memories.</span>
         </div>
         <div class="stat">
-          <strong>VIBE</strong>
-          <span>Your concert DNA, matched with the right crowd./span>
+          <strong>Sonic DNA</strong>
+          <span>Matched with the right crowd, at the right show.</span>
         </div>
         <div class="stat">
           <strong>Wrapped</strong>
-          <span>for a year-end look at your taste, habits and favorite artists.</span>
+          <span>Your concert identity, beautifully visualized.</span>
         </div>
         <div class="stat">
-          <strong>Profiles</strong>
-          <span>that turn your concert history into something worth sharing.</span>
+          <strong>Archive</strong>
+          <span>Turn your gig history into a shared story.</span>
         </div>
       </div>
-    </section>
+    </div>
 
-    <section class="section" id="experience">
-      <div class="container feature">
+    <section class="section" id="features">
+      <div class="container feature-row">
         <div class="feature-copy">
           <div class="eyebrow">Log the night</div>
           <h2>Every concert deserves more than a camera roll.</h2>
-          <p>
-            Save the artist, venue, city, date, opening act, rating and your own note — all in one place that feels crafted for music lovers.
-          </p>
-          <ul class="feature-list">
-            <li>Fast concert logging with a premium, minimal flow.</li>
-            <li>Attach your own memory with a personal note and rating.</li>
-            <li>Create a concert diary that becomes more valuable over time.</li>
-          </ul>
+          <p>Save the artist, venue, and your personal vibe. STAMP turns chaotic memories into a crafted diary for real music lovers.</p>
         </div>
         <div class="feature-visual">
-          <div class="feature-frame">
-            <img src="images/stamp-log-detail.png" alt="STAMP logging experience" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=&quot;feature-fallback&quot;><small>Log</small><h3>Every detail,<br>saved beautifully.</h3><p>Replace this block with one of your real app screenshots for a stronger Apple-style presentation.</p></div>'">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="vibe">
-      <div class="container feature reverse">
-        <div class="feature-copy">
-          <div class="eyebrow">RELIVE THE VIBE</div>
-          <h2>See who you connect with, long after the show.</h2>
-          <p>
-            STAMP pairs your memory with the vibe so you can find people who felt the night just like you.
-          </p>
-          <ul class="feature-list">
-            <li>Match with fans who share your energy and taste.</li>
-            <li>Turn every concert into new connections, not just memories.</li>
-            <li>Discover your crowd across different shows and cities.</li>
-          </ul>
-        </div>
-        <div class="feature-visual">
-          <div class="feature-frame">
-            <img src="images/stamp-vibe-2.png" alt="STAMP VIBE screen" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=&quot;feature-fallback&quot;><small>VIBE</small><h3>The songs.<br>The sequence. The memory.</h3><p>Use your vibe system here to make this section feel premium and driven by connection.</p></div>'">
+          <div class="phone-fallback" style="justify-content: center; align-items: center; text-align: center;">
+             <div class="brand-mark" style="width: 40px; height: 40px; margin-bottom: 20px;"></div>
+             <p style="color: var(--text);">[ App Screenshot Placeholder ]</p>
           </div>
         </div>
       </div>
     </section>
 
     <section class="section" id="wrapped">
-      <div class="container feature">
-        <div class="feature-copy">
-          <div class="eyebrow">Wrapped</div>
-          <h2>Your music identity, at the end of the year.</h2>
-          <p>
-            Discover your favorite artists, most active months, top venues and the patterns behind your concert life — all in a format made to share.
-          </p>
-          <ul class="feature-list">
-            <li>A premium year-end story inspired by the best consumer product experiences.</li>
-            <li>Designed for social sharing, screenshots and word of mouth.</li>
-            <li>The feature people come back for — and tell their friends about.</li>
-          </ul>
-        </div>
-        <div class="feature-visual">
-          <div class="feature-frame">
-            <img src="images/stamp-wrapped.png" alt="STAMP wrapped screen" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=&quot;feature-fallback&quot;><small>Wrapped</small><h3>Not just stats.<br>A story about your taste.</h3><p>Put your best wrapped visual here. This is the strongest section for conversion.</p></div>'">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="gallery" id="gallery">
       <div class="container">
-        <div class="eyebrow">Preview</div>
-        <h2 style="margin:18px 0 0; font-size:clamp(40px, 6vw, 72px); line-height:0.95; letter-spacing:-0.05em;">A product-first landing page.</h2>
-        <p style="max-width:760px; margin:20px 0 0; color:var(--muted); font-size:20px; line-height:1.6;">
-          The simplest way to make this page feel premium is to let your app screens do the talking. Replace these placeholders with your own screenshots.
-        </p>
-        <div class="gallery-grid" style="margin-top:34px;">
-          <div class="gallery-card">
-            <img src="images/stamp-feed.png" alt="STAMP feed screen" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=&quot;overlay&quot;><strong>Feed</strong><span>Show the social side of STAMP with ticket cards, likes and recent activity.</span></div>'">
-            <div class="overlay">
-              <strong>Feed</strong>
-              <span>Concert memories, social reactions, and beautifully designed cards.</span>
-            </div>
-          </div>
-          <div class="gallery-card">
-            <img src="images/stamp-profile.png" alt="STAMP profile screen" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=&quot;overlay&quot;><strong>Profile</strong><span>Turn a long history of gigs into something visual, personal and worth sharing.</span></div>'">
-            <div class="overlay">
-              <strong>Profile</strong>
-              <span>Your concert identity, favorite nights, and music taste in one place.</span>
-            </div>
-          </div>
-          <div class="gallery-card">
-            <img src="images/stamp-pro.png" alt="STAMP wrapped or pro screen" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=&quot;overlay&quot;><strong>Wrapped</strong><span>Make the most emotional and premium feature the final visual punch.</span></div>'">
-            <div class="overlay">
-              <strong>Wrapped</strong>
-              <span>End with the feature that feels the most distinctive and shareable.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta" id="download">
-      <div class="container">
-        <div class="cta-box">
-          <div class="eyebrow" style="justify-content:center;">Start your concert journey</div>
-          <h2>Keep every night with you.</h2>
-          <p>
-            Built for people who know that concerts are not just events — they are chapters in a music life worth remembering.
-          </p>
-          <div class="hero-actions" style="justify-content:center; margin-top:32px;">
-            <a class="btn btn-primary" href="#">Download on the App Store</a>
-            <a class="btn btn-secondary" href="mailto:hello@stamp.app">Contact</a>
-          </div>
+        <div class="wrapped-box">
+          <div class="eyebrow" style="color: var(--highlight); border-color: rgba(255, 209, 102, 0.3);">Pro Feature</div>
+          <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 84px; margin: 20px 0;">Your <span>Wrapped</span> Story.</h2>
+          <p style="color: var(--muted); max-width: 600px; margin: 0 auto 40px;">Discover your favorite venues, most active months, and top artists in a shareable format that tells your music story.</p>
+          <a href="#" class="btn btn-primary" style="background: var(--highlight); color: #000;">Preview Wrapped</a>
         </div>
       </div>
     </section>
@@ -761,13 +267,28 @@
 
   <footer class="footer">
     <div class="container footer-inner">
-      <div>© 2026 STAMP. Your concert life, remembered.</div>
-      <div class="footer-links">
+      <div class="brand" style="opacity: 0.5;">
+        <div class="brand-mark" style="background: var(--muted);"></div>
+        STAMP<span>.</span>
+      </div>
+      <div>© 2026 STAMP. All rights reserved.</div>
+      <div class="nav-links">
         <a href="#">Instagram</a>
         <a href="#">Privacy</a>
-        <a href="#">Terms</a>
       </div>
     </div>
   </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.stat, .feature-row, .wrapped-box').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
