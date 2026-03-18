@@ -69,7 +69,7 @@
     /* ── SECTIONS ── */
     .hero, .section { padding: 100px 0; }
     .feature-row { 
-      display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; 
+      display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center; 
     }
 
     .eyebrow {
@@ -94,10 +94,10 @@
     .btn-primary { background: var(--accent); color: white; box-shadow: 0 10px 30px rgba(91, 61, 245, 0.3); }
     .btn-secondary { border: 1px solid var(--surface-2); color: var(--text); background: var(--surface); }
 
-    /* ── PREMIUM STACKED DEVICES (HIZALAMA DÜZELTİLDİ) ── */
+    /* ── IMPROVED STACKED DEVICES (Daha görünür arka telefon) ── */
     .device-stack { 
       position: relative; 
-      height: 600px; 
+      height: 620px; 
       width: 100%;
       display: flex;
       justify-content: center;
@@ -106,30 +106,33 @@
     
     .phone {
       position: absolute; 
-      border-radius: 40px; 
+      border-radius: 42px; 
       background: #050505;
       border: 1px solid var(--line); 
       box-shadow: var(--shadow); 
       overflow: hidden;
+      transition: transform 0.4s ease;
     }
     .phone img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* Katmanlı yerleşim: front olan sub olanın üzerine biner */
-    .stack-front { 
-      width: 270px; height: 540px; 
-      z-index: 2; 
-      transform: translateX(40px) rotate(5deg); /* Hafif sağa ve yamuk */
-    }
+    /* Arka telefonu daha sola açtık (translateX: -80px) ve eğimi azalttık */
     .stack-back { 
-      width: 250px; height: 500px; 
+      width: 255px; height: 510px; 
       z-index: 1; 
-      transform: translateX(-40px) rotate(-8deg); /* Hafif sola ve ters yamuk */
-      opacity: 0.45;
+      transform: translateX(-85px) translateY(20px) rotate(-6deg); 
+      opacity: 0.6; /* Görünürlüğü artırdık */
     }
 
-    /* VIBE bölümü için ters simetri */
-    .reverse-stack .stack-front { transform: translateX(-40px) rotate(-5deg); }
-    .reverse-stack .stack-back { transform: translateX(40px) rotate(8deg); }
+    /* Ön telefonu hafif sağa kaydırdık */
+    .stack-front { 
+      width: 275px; height: 550px; 
+      z-index: 2; 
+      transform: translateX(65px) rotate(4deg);
+    }
+
+    /* VIBE bölümü için ters simetri - Daha açık açı */
+    .reverse-stack .stack-front { transform: translateX(-65px) rotate(-4deg); }
+    .reverse-stack .stack-back { transform: translateX(85px) translateY(20px) rotate(6deg); }
 
     .phone-fallback {
       height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding: 24px;
@@ -150,8 +153,8 @@
       .feature-row { grid-template-columns: 1fr; text-align: center; gap: 40px; }
       .feature-copy { display: flex; flex-direction: column; align-items: center; order: 1; }
       .device-stack { height: 520px; order: 2; }
-      .stack-front { width: 220px; height: 440px; transform: translateX(30px) rotate(5deg); }
-      .stack-back { width: 200px; height: 400px; transform: translateX(-30px) rotate(-8deg); }
+      .stack-front { width: 220px; height: 440px; transform: translateX(40px) rotate(4deg); }
+      .stack-back { width: 200px; height: 400px; transform: translateX(-40px) translateY(10px) rotate(-6deg); }
     }
   </style>
 </head>
@@ -174,7 +177,7 @@
 
   <main>
     <section class="hero">
-      <div class="container hero-wrap">
+      <div class="container">
         <div class="feature-row">
           <div class="hero-content">
             <div class="eyebrow">Concert diary • VIBE • Wrapped</div>
@@ -222,7 +225,7 @@
         <div class="feature-row" style="direction: rtl;">
           <div class="feature-copy" style="direction: ltr;">
             <div class="eyebrow">Relive the VIBE</div>
-            <h2 style="color: var(--accent-secondary);">See kiminle eşleşiyorsun.</h2>
+            <h2 style="color: var(--accent-secondary);">See who you match with.</h2>
             <p>STAMP pairs your memory with the VIBE so you can find people who felt the night just like you. Long after the lights go out.</p>
           </div>
           <div class="device-stack reverse-stack" style="direction: ltr;">
