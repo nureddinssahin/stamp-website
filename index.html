@@ -1,773 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>STAMP — Your concert life, remembered.</title>
-  <style>
-    :root {
-      --bg: #000000;
-      --surface: #0b0b0b;
-      --surface-2: #111111;
-      --text: #f5f5f7;
-      --muted: #a1a1aa;
-      --line: rgba(255,255,255,0.08);
-      --accent: #7dd3fc;
-      --accent-2: #38bdf8;
-      --card: rgba(255,255,255,0.03);
-      --shadow: 0 20px 60px rgba(0,0,0,0.45);
-      --radius-xl: 32px;
-      --radius-lg: 24px;
-      --radius-md: 18px;
-      --max: 1280px;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>STAMP — Your concert life, remembered.</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
+body{background:#000;color:#fff;overflow-x:hidden}
+
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 10%;
+}
+.hero h1{font-size:64px;line-height:1.1;margin-bottom:20px}
+.hero p{color:#aaa;font-size:18px}
+
+.hero-visual{position:relative}
+.phone{width:280px;border-radius:30px;transition:.4s}
+.phone.back{
+  position:absolute;
+  left:-80px;
+  top:50px;
+  opacity:.3;
+  filter:blur(10px);
+}
+.phone.front:hover{transform:translateY(-10px)}
+
+/* SECTIONS */
+.section{padding:120px 10%}
+.section.dark{background:#0a0a0a}
+
+.container{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:60px;
+}
+.container.reverse{flex-direction:row-reverse}
+
+.text{max-width:500px}
+.text h2{font-size:42px;margin-bottom:20px}
+.text p{color:#aaa;margin-bottom:20px}
+.text ul{color:#aaa;line-height:1.8}
+
+/* IMAGES */
+.image img{
+  width:340px;
+  border-radius:30px;
+  transition:.4s;
+}
+.image img:hover{transform:scale(1.03)}
+
+/* VIBE */
+.vibe-images{
+  display:flex;
+  gap:20px;
+}
+.vibe-images img{
+  width:240px;
+  border-radius:30px;
+  transition:.4s;
+}
+.vibe-images img:hover{transform:translateY(-10px)}
+
+/* GALLERY */
+.gallery{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  padding:100px 0;
+}
+.gallery img{
+  width:220px;
+  border-radius:20px;
+  transition:.4s;
+}
+.gallery img:hover{transform:scale(1.05)}
+
+/* CTA */
+.cta{text-align:center;padding:120px 20px}
+.cta h2{font-size:42px;margin-bottom:10px}
+.cta p{color:#aaa;margin-bottom:20px}
+
+.cta button{
+  background:#fff;
+  color:#000;
+  padding:14px 30px;
+  border-radius:30px;
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.3s;
+}
+.cta button:hover{transform:scale(1.05)}
+
+/* FOOTER */
+footer{text-align:center;padding:40px;color:#666}
+</style>
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top, rgba(56,189,248,0.14), transparent 28%),
-        linear-gradient(180deg, #030303 0%, #000 20%, #000 100%);
-      color: var(--text);
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-
-    img { max-width: 100%; display: block; }
-    a { color: inherit; text-decoration: none; }
-
-    .container {
-      width: min(calc(100% - 40px), var(--max));
-      margin: 0 auto;
-    }
-
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(16px);
-      background: rgba(0,0,0,0.45);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 0;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      letter-spacing: 0.14em;
-      font-size: 14px;
-    }
-
-    .brand-mark {
-      width: 12px;
-      height: 12px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 0 24px rgba(56,189,248,0.45);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .nav-cta {
-      padding: 10px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.04);
-      font-size: 14px;
-      transition: 0.25s ease;
-    }
-
-    .nav-cta:hover,
-    .btn-secondary:hover {
-      border-color: rgba(255,255,255,0.22);
-      background: rgba(255,255,255,0.08);
-    }
-
-    .hero {
-      padding: 56px 0 40px;
-      overflow: hidden;
-    }
-
-    .hero-wrap {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 48px;
-      align-items: center;
-      min-height: calc(100vh - 90px);
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #d4d4d8;
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .hero h1,
-    .feature-copy h2,
-    .cta h2 {
-      margin: 18px 0 0;
-      font-size: clamp(52px, 8vw, 104px);
-      line-height: 0.92;
-      letter-spacing: -0.05em;
-      font-weight: 800;
-    }
-
-    .hero p {
-      max-width: 560px;
-      margin: 22px 0 0;
-      font-size: clamp(18px, 2vw, 22px);
-      line-height: 1.5;
-      color: var(--muted);
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 34px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      min-height: 56px;
-      padding: 0 22px;
-      border-radius: 999px;
-      font-weight: 700;
-      transition: transform 0.25s ease, opacity 0.25s ease, background 0.25s ease, border-color 0.25s ease;
-    }
-
-    .btn:hover { transform: translateY(-1px); }
-    .btn-primary {
-      color: #03131a;
-      background: linear-gradient(135deg, #c7ecff, var(--accent));
-      box-shadow: 0 10px 40px rgba(56,189,248,0.28);
-    }
-
-    .btn-secondary {
-      color: var(--text);
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.04);
-    }
-
-    .hero-note {
-      margin-top: 18px;
-      font-size: 13px;
-      color: #71717a;
-      letter-spacing: 0.03em;
-    }
-
-    .hero-visual {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      perspective: 1600px;
-    }
-
-    .glow {
-      position: absolute;
-      inset: auto;
-      width: 480px;
-      height: 480px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(56,189,248,0.24), transparent 60%);
-      filter: blur(10px);
-      top: 12%;
-      right: 8%;
-      z-index: 0;
-    }
-
-    .device-stack {
-      position: relative;
-      width: min(100%, 520px);
-      min-height: 760px;
-    }
-
-    .phone {
-      position: absolute;
-      border-radius: 42px;
-      background: linear-gradient(180deg, #0f0f10 0%, #070707 100%);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .phone::before {
-      content: "";
-      position: absolute;
-      top: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 34%;
-      height: 22px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      z-index: 3;
-    }
-
-    .phone img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .phone-back {
-      width: 290px;
-      height: 600px;
-      left: 12px;
-      top: 100px;
-      transform: rotate(-11deg) translateZ(-40px);
-      opacity: 0.65;
-    }
-
-    .phone-front {
-      width: 340px;
-      height: 700px;
-      right: 0;
-      top: 10px;
-      transform: rotate(8deg) translateZ(40px);
-    }
-
-    .phone-fallback {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 32px;
-      background:
-        radial-gradient(circle at 80% 80%, rgba(56,189,248,0.25), transparent 26%),
-        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0)),
-        linear-gradient(180deg, #0c0d10 0%, #050505 100%);
-    }
-
-    .phone-fallback h3 {
-      margin: 0;
-      font-size: 34px;
-      line-height: 0.96;
-      letter-spacing: -0.05em;
-    }
-
-    .phone-fallback p {
-      margin: 12px 0 0;
-      color: #a1a1aa;
-      line-height: 1.5;
-      font-size: 14px;
-    }
-
-    .stats {
-      padding: 22px 0 10px;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-
-    .stat {
-      padding: 28px;
-      border-radius: var(--radius-lg);
-      background: var(--card);
-      border: 1px solid var(--line);
-    }
-
-    .stat strong {
-      display: block;
-      font-size: clamp(30px, 4vw, 44px);
-      letter-spacing: -0.04em;
-    }
-
-    .stat span {
-      display: block;
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .section {
-      padding: 110px 0;
-    }
-
-    .section + .section {
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .feature {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 56px;
-      align-items: center;
-    }
-
-    .feature.reverse .feature-copy { order: 2; }
-    .feature.reverse .feature-visual { order: 1; }
-
-    .feature-copy h2 {
-      font-size: clamp(40px, 6vw, 76px);
-    }
-
-    .feature-copy p {
-      margin: 18px 0 0;
-      max-width: 520px;
-      font-size: 20px;
-      line-height: 1.6;
-      color: var(--muted);
-    }
-
-    .feature-list {
-      margin: 28px 0 0;
-      padding: 0;
-      list-style: none;
-      display: grid;
-      gap: 14px;
-    }
-
-    .feature-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      color: #e4e4e7;
-      line-height: 1.55;
-    }
-
-    .feature-list li::before {
-      content: "●";
-      color: var(--accent);
-      margin-top: 1px;
-      font-size: 12px;
-    }
-
-    .feature-visual {
-      position: relative;
-      min-height: 720px;
-      border-radius: var(--radius-xl);
-      background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.02));
-      border: 1px solid rgba(255,255,255,0.06);
-      overflow: hidden;
-    }
-
-    .feature-visual::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top right, rgba(56,189,248,0.1), transparent 36%);
-      pointer-events: none;
-    }
-
-    .feature-frame {
-      position: absolute;
-      inset: 28px;
-      border-radius: 28px;
-      overflow: hidden;
-      background: #080808;
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: var(--shadow);
-    }
-
-    .feature-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .feature-fallback {
-      height: 100%;
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      background:
-        radial-gradient(circle at 80% 20%, rgba(56,189,248,0.14), transparent 26%),
-        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
-    }
-
-    .feature-fallback small {
-      color: var(--accent);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      font-size: 12px;
-    }
-
-    .feature-fallback h3 {
-      margin: 10px 0 0;
-      font-size: 38px;
-      letter-spacing: -0.04em;
-    }
-
-    .feature-fallback p {
-      margin: 14px 0 0;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    .gallery {
-      padding: 36px 0 110px;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .gallery-card {
-      border-radius: 26px;
-      overflow: hidden;
-      background: var(--surface-2);
-      border: 1px solid rgba(255,255,255,0.08);
-      min-height: 600px;
-      position: relative;
-    }
-
-    .gallery-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .gallery-card .overlay {
-      position: absolute;
-      inset: auto 0 0 0;
-      padding: 24px;
-      background: linear-gradient(180deg, transparent, rgba(0,0,0,0.74));
-    }
-
-    .gallery-card .overlay strong {
-      display: block;
-      font-size: 22px;
-      letter-spacing: -0.03em;
-    }
-
-    .gallery-card .overlay span {
-      display: block;
-      margin-top: 8px;
-      color: #d4d4d8;
-      line-height: 1.5;
-      font-size: 14px;
-    }
-
-    .cta {
-      padding: 0 0 120px;
-    }
-
-    .cta-box {
-      position: relative;
-      overflow: hidden;
-      border-radius: 40px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background:
-        radial-gradient(circle at 15% 20%, rgba(56,189,248,0.18), transparent 28%),
-        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      padding: 64px;
-      text-align: center;
-    }
-
-    .cta h2 {
-      font-size: clamp(38px, 6vw, 72px);
-    }
-
-    .cta p {
-      max-width: 720px;
-      margin: 18px auto 0;
-      font-size: 20px;
-      line-height: 1.6;
-      color: var(--muted);
-    }
-
-    .footer {
-      border-top: 1px solid rgba(255,255,255,0.05);
-      padding: 28px 0 42px;
-      color: #71717a;
-      font-size: 14px;
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    @media (max-width: 1100px) {
-      .hero-wrap,
-      .feature {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-wrap { min-height: auto; }
-      .hero-visual { order: -1; }
-      .feature.reverse .feature-copy,
-      .feature.reverse .feature-visual { order: initial; }
-
-      .device-stack {
-        min-height: 680px;
-        width: min(100%, 440px);
-      }
-
-      .stats-grid,
-      .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 720px) {
-      .nav-links { display: none; }
-      .hero { padding-top: 30px; }
-      .hero-actions { flex-direction: column; align-items: stretch; }
-      .btn { width: 100%; }
-      .stats-grid,
-      .gallery-grid {
-        grid-template-columns: 1fr;
-      }
-      .feature-visual,
-      .gallery-card {
-        min-height: 540px;
-      }
-      .device-stack {
-        min-height: 590px;
-        width: min(100%, 360px);
-      }
-      .phone-front {
-        width: 280px;
-        height: 580px;
-      }
-      .phone-back {
-        width: 235px;
-        height: 500px;
-      }
-      .cta-box {
-        padding: 42px 24px;
-      }
-    }
-  </style>
 </head>
 <body>
-  <header class="nav">
-    <div class="container nav-inner">
-      <a href="#top" class="brand">
-        <span class="brand-mark"></span>
-        <span>STAMP</span>
-      </a>
-      <nav class="nav-links">
-        <a href="#experience">Experience</a>
-        <a href="#setlists">Setlists</a>
-        <a href="#wrapped">Wrapped</a>
-        <a href="#gallery">Preview</a>
-      </nav>
-      <a class="nav-cta" href="#download">Download</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <h1>Your concert life, remembered.</h1>
+    <p>Track your nights. Find your people. Build your music identity.</p>
+  </div>
+
+  <div class="hero-visual">
+    <img src="images/stamp-profile.png" class="phone back">
+    <img src="images/stamp-log.png" class="phone front">
+  </div>
+</section>
+
+<!-- LOG -->
+<section class="section">
+  <div class="container">
+    <div class="text">
+      <h2>Remember every night.</h2>
+      <p>Save concerts with notes, ratings and details. Turn moments into memories.</p>
     </div>
-  </header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="container hero-wrap">
-        <div>
-          <div class="eyebrow">Concert diary • social memory • wrapped</div>
-          <h1>Your concert life, remembered.</h1>
-          <p>
-            STAMP helps you log every concert, relive every setlist, and build a profile that feels as personal as your music taste.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#download">Download on the App Store</a>
-            <a class="btn btn-secondary" href="#gallery">See the app</a>
-          </div>
-          <div class="hero-note">Use your own in-app screenshots by replacing the placeholder image files in this HTML.</div>
-        </div>
-
-        <div class="hero-visual">
-          <div class="glow"></div>
-          <div class="device-stack">
-            <div class="phone phone-back">
-              <img src="images/stamp-profile.png" alt="STAMP profile screen preview" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=&quot;phone-fallback&quot;><h3>Profile,<br>beautifully personal.</h3><p>Show your favorite nights, top venues, and the music identity you build over time.</p></div>'">
-            </div>
-            <div class="phone phone-front">
-              <img src="images/stamp-log.png" alt="STAMP add stamp screen preview" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=&quot;phone-fallback&quot;><h3>Every night,<br>a stamp.</h3><p>Log the artist, venue, date, notes, rating and the tiny details you never want to forget.</p></div>'">
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="stats">
-      <div class="container stats-grid">
-        <div class="stat">
-          <strong>1 tap</strong>
-          <span>to save a night with notes, ratings, ticket details and memories.</span>
-        </div>
-        <div class="stat">
-          <strong>Setlists</strong>
-          <span>that let you relive what happened on stage after the lights go down.</span>
-        </div>
-        <div class="stat">
-          <strong>Wrapped</strong>
-          <span>for a year-end look at your taste, habits and favorite artists.</span>
-        </div>
-        <div class="stat">
-          <strong>Profiles</strong>
-          <span>that turn your concert history into something worth sharing.</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="experience">
-      <div class="container feature">
-        <div class="feature-copy">
-          <div class="eyebrow">Log the night</div>
-          <h2>Every concert deserves more than a camera roll.</h2>
-          <p>
-            Save the artist, venue, city, date, opening act, rating and your own note — all in one place that feels crafted for music lovers.
-          </p>
-          <ul class="feature-list">
-            <li>Fast concert logging with a premium, minimal flow.</li>
-            <li>Attach your own memory with a personal note and rating.</li>
-            <li>Create a concert diary that becomes more valuable over time.</li>
-          </ul>
-        </div>
-        <div class="feature-visual">
-          <div class="feature-frame">
-            <img src="images/stamp-log-detail.png" alt="STAMP logging experience" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=&quot;feature-fallback&quot;><small>Log</small><h3>Every detail,<br>saved beautifully.</h3><p>Replace this block with one of your real app screenshots for a stronger Apple-style presentation.</p></div>'">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="setlists">
-      <div class="container feature reverse">
-        <div class="feature-copy">
-          <div class="eyebrow">Relive the set</div>
-          <h2>See what they played, long after the encore.</h2>
-          <p>
-            STAMP pairs your memory with the setlist so you can revisit the exact songs that made the night unforgettable.
-          </p>
-          <ul class="feature-list">
-            <li>Bring back the sequence, the mood, and the feeling of the show.</li>
-            <li>Turn each entry into a richer memory than a simple note.</li>
-            <li>Perfect for artists you want to compare across different nights.</li>
-          </ul>
-        </div>
-        <div class="feature-visual">
-          <div class="feature-frame">
-            <img src="images/stamp-setlist.png" alt="STAMP setlist screen" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=&quot;feature-fallback&quot;><small>Setlists</small><h3>The songs.<br>The sequence. The memory.</h3><p>Use your setlist screen here to make this section feel premium and product-led.</p></div>'">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="wrapped">
-      <div class="container feature">
-        <div class="feature-copy">
-          <div class="eyebrow">Wrapped</div>
-          <h2>Your music identity, at the end of the year.</h2>
-          <p>
-            Discover your favorite artists, most active months, top venues and the patterns behind your concert life — all in a format made to share.
-          </p>
-          <ul class="feature-list">
-            <li>A premium year-end story inspired by the best consumer product experiences.</li>
-            <li>Designed for social sharing, screenshots and word of mouth.</li>
-            <li>The feature people come back for — and tell their friends about.</li>
-          </ul>
-        </div>
-        <div class="feature-visual">
-          <div class="feature-frame">
-            <img src="images/stamp-wrapped.png" alt="STAMP wrapped screen" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=&quot;feature-fallback&quot;><small>Wrapped</small><h3>Not just stats.<br>A story about your taste.</h3><p>Put your best wrapped visual here. This is the strongest section for conversion.</p></div>'">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="gallery" id="gallery">
-      <div class="container">
-        <div class="eyebrow">Preview</div>
-        <h2 style="margin:18px 0 0; font-size:clamp(40px, 6vw, 72px); line-height:0.95; letter-spacing:-0.05em;">A product-first landing page.</h2>
-        <p style="max-width:760px; margin:20px 0 0; color:var(--muted); font-size:20px; line-height:1.6;">
-          The simplest way to make this page feel premium is to let your app screens do the talking. Replace these placeholders with your own screenshots.
-        </p>
-        <div class="gallery-grid" style="margin-top:34px;">
-          <div class="gallery-card">
-            <img src="images/stamp-feed.png" alt="STAMP feed screen" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=&quot;overlay&quot;><strong>Feed</strong><span>Show the social side of STAMP with ticket cards, likes and recent activity.</span></div>'">
-            <div class="overlay">
-              <strong>Feed</strong>
-              <span>Concert memories, social reactions, and beautifully designed cards.</span>
-            </div>
-          </div>
-          <div class="gallery-card">
-            <img src="images/stamp-profile.png" alt="STAMP profile screen" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=&quot;overlay&quot;><strong>Profile</strong><span>Turn a long history of gigs into something visual, personal and worth sharing.</span></div>'">
-            <div class="overlay">
-              <strong>Profile</strong>
-              <span>Your concert identity, favorite nights, and music taste in one place.</span>
-            </div>
-          </div>
-          <div class="gallery-card">
-            <img src="images/stamp-pro.png" alt="STAMP wrapped or pro screen" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=&quot;overlay&quot;><strong>Wrapped</strong><span>Make the most emotional and premium feature the final visual punch.</span></div>'">
-            <div class="overlay">
-              <strong>Wrapped</strong>
-              <span>End with the feature that feels the most distinctive and shareable.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta" id="download">
-      <div class="container">
-        <div class="cta-box">
-          <div class="eyebrow" style="justify-content:center;">Start your concert journey</div>
-          <h2>Keep every night with you.</h2>
-          <p>
-            Built for people who know that concerts are not just events — they are chapters in a music life worth remembering.
-          </p>
-          <div class="hero-actions" style="justify-content:center; margin-top:32px;">
-            <a class="btn btn-primary" href="#">Download on the App Store</a>
-            <a class="btn btn-secondary" href="mailto:hello@stamp.app">Contact</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div>© 2026 STAMP. Your concert life, remembered.</div>
-      <div class="footer-links">
-        <a href="#">Instagram</a>
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-      </div>
+    <div class="image">
+      <img src="images/stamp-log-detail.png">
     </div>
-  </footer>
+  </div>
+</section>
+
+<!-- 🔥 VIBE -->
+<section class="section dark">
+  <div class="container reverse">
+
+    <div class="text">
+      <h2>Find your people.</h2>
+      <p>
+        VIBE connects you with people who share your concerts and music taste.
+      </p>
+      <ul>
+        <li>Compatibility score</li>
+        <li>Shared artists & venues</li>
+        <li>Music identity</li>
+      </ul>
+    </div>
+
+    <div class="vibe-images">
+      <img src="images/stamp-vibe-1.png">
+      <img src="images/stamp-vibe-2.png">
+    </div>
+
+  </div>
+</section>
+
+<!-- WRAPPED -->
+<section class="section">
+  <div class="container">
+    <div class="text">
+      <h2>Your year in music.</h2>
+      <p>Relive your best moments with STAMP Wrapped.</p>
+    </div>
+
+    <div class="image">
+      <img src="images/stamp-wrapped.png">
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery">
+  <img src="images/stamp-feed.png">
+  <img src="images/stamp-profile.png">
+  <img src="images/stamp-pro.png">
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>Start your journey.</h2>
+  <p>Join STAMP and build your music identity.</p>
+  <button>Download Soon</button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>STAMP © 2026</p>
+</footer>
+
 </body>
 </html>
