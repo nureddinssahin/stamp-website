@@ -67,6 +67,23 @@
     .nav-links a { color: var(--muted); transition: 0.2s; text-decoration: none; }
     .nav-links a:hover { color: var(--accent-secondary); }
 
+    .nav-cta-email {
+      padding: 10px 22px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid var(--accent-secondary);
+      color: var(--accent-secondary);
+      transition: all 0.3s ease;
+    }
+    .nav-cta-email:hover {
+      background: var(--accent-secondary);
+      color: #000;
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
+      transform: translateY(-2px);
+    }
+
     /* ── ANIMATION CLASSES ── */
     .reveal {
       opacity: 0;
@@ -78,7 +95,7 @@
       transform: translateY(0);
     }
 
-    /* ── HERO & SECTIONS ── */
+    /* ── SECTIONS ── */
     .hero, .section { padding: 100px 0; }
     .feature-row { 
       display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center; 
@@ -104,9 +121,10 @@
       font-weight: 700; text-decoration: none; transition: 0.3s; font-size: 15px;
     }
     .btn-primary { background: var(--accent); color: white; box-shadow: 0 10px 30px rgba(91, 61, 245, 0.3); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(91, 61, 245, 0.5); }
     .btn-secondary { border: 1px solid var(--surface-2); color: var(--text); background: var(--surface); }
 
-    /* ── HOVERABLE DEVICE STACK ── */
+    /* ── DEVICE STACK (HOVER) ── */
     .device-stack { 
       position: relative; height: 620px; width: 100%;
       display: flex; justify-content: center; align-items: center;
@@ -131,7 +149,6 @@
       transform: translateX(65px) rotate(4deg);
     }
 
-    /* HOVER EFFECT: Arayı açma */
     .device-stack:hover .stack-back {
       transform: translateX(-140px) translateY(30px) rotate(-10deg);
       opacity: 0.8;
@@ -140,7 +157,6 @@
       transform: translateX(110px) rotate(8deg);
     }
 
-    /* VIBE HOVER (Ters Yön) */
     .reverse-stack .stack-front { transform: translateX(-65px) rotate(-4deg); }
     .reverse-stack .stack-back { transform: translateX(85px) translateY(20px) rotate(6deg); }
 
@@ -153,12 +169,11 @@
     }
     .phone-fallback h3 { font-family: 'Bebas Neue', sans-serif; font-size: 30px; line-height: 0.9; }
 
-    /* ── PRO GRID ── */
+    /* ── STAMP PRO ── */
     .pro-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 30px; margin: 40px auto 0; max-width: 1100px; text-align: center;
     }
-
     .pro-card {
       background: #171717; border: 1px solid rgba(255, 255, 255, 0.08);
       padding: 40px 30px; border-radius: 28px; transition: all 0.3s ease;
@@ -184,7 +199,7 @@
       .device-stack { height: 520px; order: 2; }
       .stack-front { width: 220px; height: 440px; transform: translateX(40px) rotate(4deg); }
       .stack-back { width: 200px; height: 400px; transform: translateX(-40px) translateY(10px) rotate(-6deg); }
-      .device-stack:hover .stack-back, .device-stack:hover .stack-front { transform: none; } /* Mobile'da hover'ı kapattık */
+      .device-stack:hover .stack-back, .device-stack:hover .stack-front { transform: none; }
     }
   </style>
 </head>
@@ -201,7 +216,7 @@
         <a href="#vibe">VIBE</a>
         <a href="#pro">Pro</a>
       </nav>
-      <a href="#download" class="btn-secondary" style="padding: 10px 20px; font-size: 13px;">Get Early Access</a>
+      <a href="mailto:info@stampapp.online?subject=STAMP Early Access Request&body=Hi! I want to get early access to STAMP." class="nav-cta-email">Get Early Access</a>
     </div>
   </header>
 
@@ -214,7 +229,7 @@
             <h1>Your concert life, <span>remembered.</span></h1>
             <p>STAMP helps you log every concert, relive the energy, and connect with fans who share your unique VIBE.</p>
             <div class="hero-actions" style="display: flex; gap: 14px; margin-top: 32px;">
-              <a href="#download" class="btn btn-primary">Coming Soon to App Store</a>
+              <a href="mailto:info@stampapp.online?subject=STAMP Early Access Request" class="btn btn-primary">Get Early Access</a>
               <a href="#features" class="btn btn-secondary">Explore VIBE ↓</a>
             </div>
           </div>
@@ -314,7 +329,7 @@
         </div>
 
         <div class="pro-footer reveal" style="margin-top: 80px;">
-          <a href="#" class="btn-pro-buy">One-Time Purchase — $9.99</a>
+          <a href="mailto:info@stampapp.online?subject=STAMP PRO Inquiry" class="btn-pro-buy">One-Time Purchase — $9.99</a>
           <p style="margin-top: 20px; font-size: 12px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase;">
             FOREVER ACCESS. NO SUBSCRIPTION.
           </p>
@@ -331,6 +346,7 @@
       </div>
       <div>© 2026 STAMP. All rights reserved.</div>
       <div style="display: flex; gap: 20px;">
+        <a href="mailto:info@stampapp.online" style="color: var(--muted); text-decoration: none;">Contact</a>
         <a href="#" style="color: var(--muted); text-decoration: none;">Instagram</a>
         <a href="#" style="color: var(--muted); text-decoration: none;">Privacy</a>
       </div>
@@ -338,20 +354,19 @@
   </footer>
 
   <script>
-    // SCROLL REVEAL SCRIPT
     function reveal() {
       var reveals = document.querySelectorAll(".reveal");
       for (var i = 0; i < reveals.length; i++) {
         var windowHeight = window.innerHeight;
         var elementTop = reveals[i].getBoundingClientRect().top;
-        var elementVisible = 150;
+        var elementVisible = 100;
         if (elementTop < windowHeight - elementVisible) {
           reveals[i].classList.add("active");
         }
       }
     }
     window.addEventListener("scroll", reveal);
-    reveal(); // Sayfa yüklendiğinde ilk kontrolü yap
+    reveal(); 
   </script>
 </body>
 </html>
