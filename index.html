@@ -80,7 +80,7 @@
 
     .eyebrow {
       display: inline-flex; padding: 6px 14px; border-radius: 100px;
-      background: rgba(91, 61, 245, 0.1); border: 1px solid rgba(91, 61, 245, 0.2);
+      background: rgba(10,10,10,0.4); border: 1px solid rgba(255,255,255,0.1);
       color: var(--accent-secondary); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
     }
 
@@ -104,28 +104,28 @@
     .btn-secondary { border: 1px solid var(--surface-2); color: var(--text); background: var(--surface); }
     .btn-secondary:hover { border-color: var(--accent-secondary); }
 
-    /* ── DEVICE VISUAL ── */
-    .hero-visual { position: relative; }
-    .device-stack { position: relative; height: 600px; perspective: 1000px; }
+    /* ── DEVICE VISUALS ── */
+    .hero-visual, .feature-visual { position: relative; display: flex; justify-content: center; align-items: center; }
+    .device-stack { position: relative; height: 600px; perspective: 1200px; width: 100%; }
     
     .phone {
       position: absolute; border-radius: 40px; background: #050505;
       border: 1px solid var(--line); box-shadow: var(--shadow); overflow: hidden;
     }
+    .phone img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Hero Phones */
     .phone-front { width: 280px; height: 560px; right: 0; top: 0; z-index: 2; transform: rotate(5deg); }
     .phone-back { width: 260px; height: 520px; left: 40px; top: 40px; z-index: 1; transform: rotate(-8deg); opacity: 0.5; }
     
+    /* Feature Phone */
+    .feature-phone { width: 260px; height: 520px; transform: rotateY(-15deg) rotateX(5deg); }
+
     .phone-fallback {
       height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding: 30px;
       background: linear-gradient(to bottom, var(--surface), #000);
     }
     .phone-fallback h3 { font-family: 'Bebas Neue', sans-serif; font-size: 32px; margin-bottom: 10px; }
-
-    /* ── STATS ── */
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--line); margin-top: 40px; }
-    .stat { background: var(--bg); padding: 40px; }
-    .stat strong { display: block; font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--accent-secondary); }
-    .stat span { color: var(--muted); font-size: 14px; line-height: 1.5; }
 
     /* ── SECTIONS ── */
     .section { padding: 120px 0; }
@@ -136,11 +136,6 @@
     .feature-copy h2 { font-family: 'Bebas Neue', sans-serif; font-size: 72px; line-height: 1; margin: 20px 0; }
     .feature-copy p { font-size: 18px; color: var(--muted); line-height: 1.6; }
     
-    .feature-visual { 
-      background: var(--surface); border-radius: var(--radius-xl); height: 500px; 
-      border: 1px solid var(--line); position: relative; overflow: hidden;
-    }
-
     /* ── WRAPPED (GOLD) ── */
     .wrapped-box {
       background: linear-gradient(135deg, #171717, #0A0A0A);
@@ -155,12 +150,11 @@
 
     @media (max-width: 900px) {
       .hero-wrap, .feature-row { grid-template-columns: 1fr; text-align: center; }
-      .hero p { margin: 0 auto; }
       .hero-actions { justify-content: center; }
-      .hero-visual { order: -1; margin-bottom: 40px; }
       .device-stack { height: 500px; width: 320px; margin: 0 auto; }
       .phone-front { width: 220px; height: 440px; }
       .phone-back { width: 200px; height: 400px; left: 20px; }
+      .feature-phone { margin: 0 auto; transform: none; }
     }
   </style>
 </head>
@@ -197,40 +191,30 @@
         <div class="hero-visual">
           <div class="device-stack">
             <div class="phone phone-back">
-              <div class="phone-fallback">
-                <h3>Visual Archive</h3>
-              </div>
+              <img src="hero-sub.png" alt="" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=&quot;phone-fallback&quot;><h3>Visual Archive</h3></div>'">
             </div>
             <div class="phone phone-front">
-              <div class="phone-fallback" style="background: linear-gradient(to bottom, #1e1e1e, #0a0a0a);">
-                <h3 style="color: var(--accent-secondary);">Relive the<br>VIBE.</h3>
-              </div>
+              <img src="hero-main.png" alt="" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=&quot;phone-fallback&quot; style=&quot;background: linear-gradient(to bottom, #1e1e1e, #0a0a0a);&quot;><h3 style=&quot;color: var(--accent-secondary);&quot;>Every Night,<br>A Stamp.</h3></div>'">
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat">
-          <strong>1 Tap</strong>
-          <span>to save a night with notes, ratings and memories.</span>
+    <section class="section" id="features">
+      <div class="container feature-row">
+        <div class="feature-copy">
+          <div class="eyebrow">Log the night</div>
+          <h2>Every concert deserves more than a camera roll.</h2>
+          <p>Save the artist, venue, and your personal vibe. STAMP turns chaotic memories into a crafted diary for real music lovers.</p>
         </div>
-        <div class="stat">
-          <strong>VIBE</strong>
-          <span>Matched with the right crowd, at the right show.</span>
-        </div>
-        <div class="stat">
-          <strong>Wrapped</strong>
-          <span>Your concert identity, beautifully visualized.</span>
-        </div>
-        <div class="stat">
-          <strong>Archive</strong>
-          <span>Turn your gig history into a shared story.</span>
+        <div class="feature-visual">
+          <div class="phone feature-phone">
+            <img src="log-screen.png" alt="" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=&quot;phone-fallback&quot;><small style=&quot;color: var(--accent-secondary); letter-spacing: 2px; text-transform: uppercase; font-size: 10px; font-weight: 800;&quot;>Log Experience</small><h3 style=&quot;font-family: \&quot;Bebas Neue\&quot;, sans-serif; font-size: 36px; line-height: 0.9; margin-top: 10px;&quot;>EVERY NIGHT,<br><span style=&quot;color: var(--accent);&quot;>A STAMP.</span></h3></div>'">
+          </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <section class="section" id="vibe">
       <div class="container feature-row reverse">
@@ -240,9 +224,8 @@
           <p>STAMP pairs your memory with the VIBE so you can find people who felt the night just like you. Long after the lights go out.</p>
         </div>
         <div class="feature-visual">
-          <div class="phone-fallback" style="justify-content: center; align-items: center; text-align: center;">
-             <div class="brand-mark" style="width: 40px; height: 40px; margin-bottom: 20px; background: var(--accent-secondary); box-shadow: 0 0 20px var(--accent-secondary);"></div>
-             <p style="color: var(--text);">[ VIBE Connection Screen ]</p>
+          <div class="phone feature-phone" style="transform: rotateY(15deg) rotateX(5deg);">
+            <img src="vibe-screen.png" alt="" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=&quot;phone-fallback&quot; style=&quot;justify-content: center; align-items: center; text-align: center;&quot;><div class=&quot;brand-mark&quot; style=&quot;width: 40px; height: 40px; margin-bottom: 20px; background: var(--accent-secondary); box-shadow: 0 0 20px var(--accent-secondary);&quot;></div><p style=&quot;color: var(--text);&quot;>[ VIBE Screen ]</p></div>'">
           </div>
         </div>
       </div>
